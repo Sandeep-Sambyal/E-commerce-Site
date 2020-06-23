@@ -44,8 +44,8 @@
 {% block body %}
 {% load static %}
 <div class="container">
-    <!--{% for product,range,nSlides in allproducts %} -->
-    <h5 class="my-4">Top Selling Items</h5>
+    {% for product,range,nSlides in allProds %}
+    <h5 class="my-4">Recommended Items --{{product.0.category}}</h5>
 <div id="demo{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
     <ul class="carousel-indicators">
       <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -71,7 +71,8 @@
        </div>
 -->
 
-        {% for i in product|slice:"1:"%}
+
+        {% for i in product %}
         <div class="col-xs-3 col-sm-3 col-md-3">
           <div class="card" style="width: 18rem;">
             <img src='/media/{{i.image}}' class="card-img-top" alt="...">
@@ -101,7 +102,7 @@
         <span class="carousel-control-next-icon"></span>
     </a>
 
-<!--{% endfor %} -->
+{% endfor %}
 
 </div>
  {% endblock %}
