@@ -1,0 +1,10 @@
+{%  extends 'ecart/basic.html' %}
+
+{%block title%} Contact US!-- {% endblock %}
+{% block style %}  {% endblock %}
+{% block body %}
+{% for product,range,nSlides in allProds %}
+<div >
+<p>{{product.product_name}}</p> </div>
+{% endfor %}
+{% endblock %}
