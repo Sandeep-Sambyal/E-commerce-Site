@@ -34,12 +34,12 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Python\projects\AppDesigning\ecart\templates\ecart" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Python\projects\AppDesigning\ecart\static\ecart" />
       <recent name="C:\Users\Python\projects\AppDesigning\ecart\static/" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Python\projects\AppDesigning\ecart\templates\ecart" />
     </key>
   </component>
   <component name="RunManager" selected="Python.tests">
