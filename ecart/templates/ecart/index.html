@@ -1,6 +1,9 @@
 {% extends 'ecart/basic.html' %}
-{%block title%} Ecart- Home{% endblock %}
+{%block title%} {% load static %} Ecart- Home{% endblock %}
  {% block css %}
+body{
+background-image : url("{%static 'ecart/backgroundimage.jpg' %}");
+}
          .col-md-3
           {
           display: inline-block;
@@ -14,7 +17,7 @@
 
           .col-md-3 img{
 
-          width: 255px;
+          max-width: 255px;
           height: 150px;
           }
 
@@ -42,7 +45,7 @@
  {% endblock %}
 
 {% block body %}
-{% load static %}
+
 <div class="container">
     {% for product,range,nSlides in allProds %}
     <h5 class="my-4">Recommended Items --{{product.0.category}}</h5>
@@ -67,7 +70,7 @@
             <div class="card-body">
               <h5 class="card-title">{{i.product_name}}</h5>
               <p class="card-text">{{i.desc}}</p>
-              <a href="#" class="btn btn-primary">Add To Cart</a>
+                <button class="btn btn-primary cart" id="pr{{i.id}}">Add To Cart</button>
             </div>
           </div>
         </div>
@@ -94,3 +97,27 @@
 
 </div>
  {% endblock %}
+
+{% block js %}
+<script>
+
+      if(localStorage.getItem('cart')==null){
+      var cart={};
+      }
+      else{
+        cart=JSON.parse(localStorage.getItem('cart'));
+      }
+      $('.cart').click(function (){
+      var strid=this.id.toString();
+      if(cart[strid]!=undefined){
+        cart[strid]=cart[strid]+1;
+      }
+      else{
+        cart[strid]=1;
+      }
+      console.log(cart);
+      localStorage.setItem('cart',JSON.stringify(cart));
+      })
+
+</script>
+{% endblock %}
