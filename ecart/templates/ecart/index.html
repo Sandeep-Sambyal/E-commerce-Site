@@ -17,7 +17,7 @@ background-image : url("{%static 'ecart/backgroundimage.jpg' %}");
 
           .col-md-3 img{
 
-          max-width: 255px;
+          width: auto;
           height: 150px;
           }
 
@@ -32,15 +32,18 @@ background-image : url("{%static 'ecart/backgroundimage.jpg' %}");
           body .carousel-control-prev-icon,
           body .carousel-control-next-icon{
           background-color: blue;
+
           }
           .carousel-control-prev,
           .carousel-control-next{
           top: auto;
            bottom: auto;
+            padding-top: 173px;
           }
            body .no-padding{
            padding-left: 0,
            padding-right: 0;
+
            }
  {% endblock %}
 
@@ -48,8 +51,10 @@ background-image : url("{%static 'ecart/backgroundimage.jpg' %}");
 
 <div class="container">
     {% for product,range,nSlides in allProds %}
+
     <h5 class="my-4">Recommended Items --{{product.0.category}}</h5>
-<div id="demo{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
+    <div class="row">
+<div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
     <ul class="carousel-indicators">
       <li data-target="#demo" data-slide-to="0" class="active"></li>
 
@@ -65,10 +70,10 @@ background-image : url("{%static 'ecart/backgroundimage.jpg' %}");
 
         {% for i in product %}
         <div class="col-xs-3 col-sm-3 col-md-3">
-          <div class="card" style="width: 18rem;">
+          <div class="card" style="width: 18rem; ">
             <img src='/media/{{i.image}}' class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">{{i.product_name}}</h5>
+              <h5 class="card-title" style="display:in-line;">{{i.product_name}}</h5>
               <p class="card-text">{{i.desc}}</p>
                 <button class="btn btn-primary cart" id="pr{{i.id}}">Add To Cart</button>
             </div>
@@ -92,7 +97,7 @@ background-image : url("{%static 'ecart/backgroundimage.jpg' %}");
     <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
         <span class="carousel-control-next-icon"></span>
     </a>
-
+</div>
 {% endfor %}
 
 </div>
