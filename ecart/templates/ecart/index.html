@@ -100,12 +100,13 @@ background-image : url("{%static 'ecart/backgroundimage.jpg' %}");
 
 {% block js %}
 <script>
-
+    console.log('working');
       if(localStorage.getItem('cart')==null){
       var cart={};
       }
       else{
         cart=JSON.parse(localStorage.getItem('cart'));
+        document.getElementById('cart').innerHTML = Object.keys(cart).length;
       }
       $('.cart').click(function (){
       var strid=this.id.toString();
@@ -117,7 +118,10 @@ background-image : url("{%static 'ecart/backgroundimage.jpg' %}");
       }
       console.log(cart);
       localStorage.setItem('cart',JSON.stringify(cart));
-      })
+      document.getElementById('cart').innerHTML=Object.keys(cart).length;
+      }
+
+      );
 
 </script>
 {% endblock %}
