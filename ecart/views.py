@@ -60,5 +60,10 @@ def search(request):
     return HttpResponse("SEARCH PAGE")
 def checkout(request):
     return HttpResponse("checkout PAGE")
-def productview(request):
-    return HttpResponse("productview PAGE")
+def products(request , myid):
+    product = Products.objects.filter( id = myid)
+    print(product)
+    return render(request,'ecart/products.html',{'Product':product[0]})
+
+def seller(request):
+    return render(request,'ecart/SellerForm.html')

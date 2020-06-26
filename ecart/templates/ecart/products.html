@@ -1,0 +1,50 @@
+{%  extends 'ecart/basic.html' %}
+
+{%block title%}{% load static %} {{Product.product_name}} - Ecart {% endblock %}
+
+{% block css %}
+        .containerproduct > div{
+
+			float: left;
+			width: 50%;
+			height: 20em;
+		}
+
+		.containerproduct-1{
+
+
+		}
+		.containerproduct-2{
+
+		}
+		#productimg{
+			padding: 15px;
+			display: block;
+  			margin-left: auto;
+  			margin-right: auto;
+  			height: 18em
+
+		}
+		.Price{
+			margin-top: 5px;
+		}
+
+{% endblock %}
+
+{% block body %}
+<div class="containerproduct">
+	<div class="containerproduct-1" >
+		<img  id="productimg" src="/media/{{Product.image}}" alt="Error!Loading Image">
+
+	</div>
+	<div class="containerproduct-2">
+		<h2>{{Product.product_name}}</h2>
+		<h3 class="Price">RS-{{Product.price}}/-<h3>
+			<p>{{Product.desc}}<p>
+
+	</div>
+</div>
+
+
+
+{% endblock %}
