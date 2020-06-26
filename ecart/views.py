@@ -54,8 +54,8 @@ def contact(request):
     #print(params)
     return render(request,'ecart/contact.html',params)
 
-def tracker(request):
-    return HttpResponse("TRACKER PAGE")
+def orders(request):
+    return HttpResponse("ORDERS PAGE")
 def search(request):
     return HttpResponse("SEARCH PAGE")
 def checkout(request):
