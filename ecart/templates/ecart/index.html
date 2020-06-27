@@ -73,7 +73,7 @@ background-image : url("{%static 'ecart/backgroundimage.jpg' %}");
           <div class="card" style="width: 18rem; ">
             <img src='/media/{{i.image}}' class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title" style="display:in-line;">{{i.product_name}}</h5>
+              <h5 class="card-title" style="font-size:16px">{{i.product_name | slice:"0:20"}} ...</h5>
               <p class="card-text">{{i.desc}}</p>
                 <button class="btn btn-primary cart" id="pr{{i.id}}">Add To Cart</button>
                 <a href="products/{{i.id}}"> <button class="btn btn-primary cart mx-1" id="qv{{i.id}}">Quick View</button></a>
