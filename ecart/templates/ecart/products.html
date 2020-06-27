@@ -8,6 +8,8 @@
 			float: left;
 			width: 50%;
 			height: 20em;
+			border-color: blue;
+			border-top: solid;
 		}
 
 		.containerproduct-1{
@@ -28,22 +30,50 @@
 		.Price{
 			margin-top: 5px;
 		}
+		.header{
+			background-color: black;
+			height: 35px;
+			margin-left: 25px;
+			margin-right: 25px;
+		}
+		.cat-prod-ul{
+			float: left;
+			display: contents;
+			padding:5px;
+			background-color: red;
+			width: inherit;
+		}
+		.cat-prod{
+			color: white;
+			float: left;
+			padding-top: 5px;
+			margin-right: 85px;
+			list-style-type: none;
+
+		}
 
 {% endblock %}
 
 {% block body %}
-<div class="containerproduct">
-	<div class="containerproduct-1" >
-		<img  id="productimg" src="/media/{{Product.image}}" alt="Error!Loading Image">
+	<div class="header">
+		<ul class="cat-prod-ul">
+			<li class="cat-prod">{WRITE CODE OF SUB CATEGORY IN THAT PRODUCT AND INCLUIDE HERE like product page.} </li>
+
+		</ul>
 
 	</div>
-	<div class="containerproduct-2">
-		<h2>{{Product.product_name}}</h2>
-		<h3 class="Price">RS-{{Product.price}}/-<h3>
-			<p>{{Product.desc}}<p>
+	<div class="containerproduct">
+		<div class="containerproduct-1" >
+			<img  id="productimg" src="/media/{{Product.image}}" alt="Error!Loading Image">
 
+		</div>
+		<div class="containerproduct-2">
+			<h2>{{Product.product_name}}</h2>
+			<h3 class="Price">RS-{{Product.price}}/-</h3>
+				<p>{{Product.desc}}<p>
+
+		</div>
 	</div>
-</div>
 
 
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Products
+from .models import Products,CustomerData
 from math import ceil
 # Create your views here.
 
@@ -60,10 +60,35 @@ def search(request):
     return HttpResponse("SEARCH PAGE")
 def checkout(request):
     return HttpResponse("checkout PAGE")
+
 def products(request , myid):
     product = Products.objects.filter( id = myid)
     print(product)
     return render(request,'ecart/products.html',{'Product':product[0]})
 
 def seller(request):
-    return render(request,'ecart/SellerForm.html')
+    if request.method=="POST":
+        fname =request.POST.get('Firstname','')
+        lname =request.POST.get('lastname','')
+        email =request.POST.get('email','')
+        address =request.POST.get('Address','')
+        name =request.POST.get('Firstname','')
+        state=request.POST.get('State','')
+        zip=request.POST.get('zip','')
+        country=request.POST.get('country','')
+        same_addr=request.POST.get('same_addr','false')
+        phone=request.POST.get('phone','')
+
+        name=fname.strip() + " " + lname.strip()
+        address=address.strip()+" "+state.strip()+" "+zip+" "+country
+
+        print(name, email, address,same_addr,phone)
+        if same_addr=='false':
+            custdata=CustomerData(seller_profile="R",CustomerName=name,email=email,seller_address =address ,phone=phone,country=country)
+            custdata.save()
+        else:
+            custdata = CustomerData(seller_profile="R", CustomerName=name, email=email, seller_address=address, shipping_address=address,phone=phone,country=country )
+            custdata.save()
+
+    param={'countrylist':['India','Nepal','Pakistan','Sri Lanka','Bangladesh']}
+    return render(request,'ecart/SellerForm.html',param)
