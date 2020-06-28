@@ -39,20 +39,23 @@
       <form class="needs-validation" novalidate method="post" action="/shop/beaseller/">
         <!--<div class="row"> -->
         {% csrf_token %}
-          <div class="col-md-6 mb-3">
+        <div class="nameholder">
+
+          <div class="mb-3">
             <label for="firstName">First name</label>
             <input type="text" class="form-control" id="firstName" name="Firstname" placeholder="" value="" required>
             <div class="invalid-feedback">
               Valid first name is required.
             </div>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="mb-3">   <!--col-md-6 mb-3 -->
             <label for="lastName">Last name</label>
             <input type="text" class="form-control" id="lastName" name="lastname" placeholder="" value="" required>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
           </div>
+      </div>
         <!--</div> -->
 
         <div class="mb-3">
@@ -80,7 +83,7 @@
         </div>
 
        <!-- <div class="row"> -->
-          <div class="col-md-5 mb-3">
+          <div class="mb-3">
             <label for="Country">Country</label>
             <select  class="form-control" id="country" name="country" >
               <option value="None" >None..</option>
@@ -90,7 +93,7 @@
             </select>
           </div>
 
-          <div class="col-md-3 mb-3">
+          <div class="mb-3">
             <label for="zip">Zip</label>
             <input type="text" class="form-control" id="zip" placeholder="" name="zip" required>
             <div class="invalid-feedback">

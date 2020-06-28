@@ -12,14 +12,9 @@ def index(request):
     for val2 in val2:
         prod = Products.objects.filter(category=val2)
         val = [item.product_name for item in prod]
-        for a in val:
-            print(a)
         str1 = str1 + ","
         n = len(prod)
         nSlides = n // 4 + ceil((n / 4) - (n // 4))
-        """str1=str1+str(prod)
-        a=[item['product_name']  in prod]
-            print(item)"""
         allProds.append([prod, range(1, nSlides), nSlides])
     params = {'allProds': allProds}
     return render(request, 'ecart/index.html', params)
@@ -63,7 +58,6 @@ def checkout(request):
 
 def products(request , myid):
     product = Products.objects.filter( id = myid)
-    print(product)
     return render(request,'ecart/products.html',{'Product':product[0]})
 
 def seller(request):
@@ -82,7 +76,7 @@ def seller(request):
         name=fname.strip() + " " + lname.strip()
         address=address.strip()+" "+state.strip()+" "+zip+" "+country
 
-        print(name, email, address,same_addr,phone)
+
         if same_addr=='false':
             custdata=CustomerData(seller_profile="R",CustomerName=name,email=email,seller_address =address ,phone=phone,country=country)
             custdata.save()
