@@ -54,7 +54,7 @@ def orders(request):
 def search(request):
     return HttpResponse("SEARCH PAGE")
 def checkout(request):
-    return HttpResponse("checkout PAGE")
+    return render(request,'ecart/order.html')
 
 def products(request , myid):
     product = Products.objects.filter( id = myid)
