@@ -1,3 +1,5 @@
 testcode.py
 __pycache__/
 *.pyc
+/ecart/__pycache__/
+**/*.pyc

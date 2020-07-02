@@ -27,6 +27,16 @@ class CustomerData(models.Model):
     def __str__(self):
         return self.CustomerName
 
+class Order(models.Model):
+    order_id=models.AutoField(primary_key=True)
+    name=models.CharField(max_length=200,default="")
+    email=models.CharField(max_length=70,default="")
+    phone=models.CharField(max_length=15,default="")
+    address=models.CharField(max_length=500,default="")
+    city=models.CharField(max_length=70,default="")
+    state=models.CharField(max_length=70,default="")
+    zip_code=models.CharField(max_length=10,default="")
+    prod_list=models.CharField(max_length=2000,default="")
 
 
 

@@ -2,7 +2,7 @@
 {%block title%} {% load static %} Ecart- Home{% endblock %}
  {% block css %}
 body{
-background-image : url("{%static 'ecart/skywallpaper.jpeg' %}");
+#background-image : url("{%static 'ecart/skywallpaper.jpeg' %}");
 }
          .col-md-3
           {
@@ -45,6 +45,14 @@ background-image : url("{%static 'ecart/skywallpaper.jpeg' %}");
            padding-right: 0;
 
            }
+           .card-title,.card-text{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            }
+.card-text{
+font-size:small;}
+
  {% endblock %}
 
 {% block body %}
@@ -52,7 +60,7 @@ background-image : url("{%static 'ecart/skywallpaper.jpeg' %}");
 <div class="container">
     {% for product,range,nSlides in allProds %}
 
-    <h5 class="my-4">Recommended Items --{{product.0.category}}</h5>
+    <h5 class="my-2">Recommended Items --{{product.0.category}}</h5>
     <div class="row">
 <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
     <ul class="carousel-indicators">
@@ -73,8 +81,10 @@ background-image : url("{%static 'ecart/skywallpaper.jpeg' %}");
           <div class="card" style="width: 18rem; ">
             <img src='/media/{{i.image}}' class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title" style="font-size:16px">{{i.product_name | slice:"0:20"}} ...</h5>
+              <h5 class="card-title" id="namepr{{i.id}}" style="font-size:16px">{{i.product_name}}</h5>
               <p class="card-text">{{i.desc}}</p>
+             <!-- <h5 class="card-title" id="namepr{{i.id}}" style="font-size:16px">{{i.product_name | slice:"0:20"}} ...</h5>
+              <p class="card-text">{{i.desc}}</p> -->
               <span id="divpr{{i.id}}" class="divpr">
                 <button class="btn btn-primary cart" id="pr{{i.id}}">Add To Cart</button> 
               </span>
@@ -107,78 +117,8 @@ background-image : url("{%static 'ecart/skywallpaper.jpeg' %}");
  {% endblock %}
 
 {% block js %}
-<script>
-    console.log('working');
-      if(localStorage.getItem('cart')==null){
-      var cart={};
-      }
-      else{
-        cart=JSON.parse(localStorage.getItem('cart'));
-        document.getElementById('cart').innerHTML = Object.keys(cart).length;
-        updatecart(cart);
-      }
-
-      $('.cart').click(function (){
-      var strid=this.id.toString();
-      if(cart[strid]!=undefined){
-        cart[strid]=cart[strid]+1;
-        updatecart(cart);
-      }
-      else{
-        cart[strid]=1;
-        updatecart(cart)
-
-      }
+<script type="text/javascript" src="{%static '/ecart/functions.js'%}"></script>
 
 
- // This below code is to get count of values in dictionary.
-  /*  var car=new Array();
-    car=Object.values(cart);
-        var text=0;
-        for (i = 0; i < car.length; i++) {
-            text += car[i] ;
-            console.log(cart[i])
-        }
-        console.log(text); */
-
-      });
-
-
-     $('#popcart').popover();
-     document.getElementById("popcart").setAttribute('data-content', '<h5>Cart for your items in my shopping cart</h5>');
-
-    function updatecart(cart){
-        console.log(cart);
-        for (var item in cart){
-        console.log(item);
-            document.getElementById('div'+item).innerHTML="<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
-            }
-        localStorage.setItem('cart', JSON.stringify(cart));
-        document.getElementById('cart').innerHTML = Object.keys(cart).length;
-
-    }
-    $('.divpr').on("click","button.minus",function(){
-        console.log("minus")
-        a=this.id.slice(7,);
-        console.log(a);
-        cart['pr'+a]=cart['pr'+a]-1;
-        cart['pr'+a]=Math.max(0,cart['pr'+a]);
-        document.getElementById('valpr'+a).innerHTML=cart['pr'+a];
-        updatecart(cart);
-
-    })
-    $('.divpr').on("click","button.plus",function(){
-        console.log("plus")
-        a=this.id.slice(6,);
-        cart['pr'+a]=cart['pr'+a]+1;
-        document.getElementById('valpr'+a).innerHTML=cart['pr'+a];
-        updatecart(cart);
-
-    })
-
-
-
-
-</script>
 
 {% endblock %}
