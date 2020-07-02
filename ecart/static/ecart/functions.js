@@ -15,11 +15,15 @@
 
       var strid=this.id.toString();
       if(cart[strid]!=undefined){
-        cart[strid]=cart[strid]+1;
+        qty=cart[strid][0]+1;
+        name=document.getElementById('name'+strid).innerHTML
+        cart[strid]=[qty,name]
         updatecart(cart);
       }
       else{
-        cart[strid]=1;
+        qty=1;
+        name=document.getElementById('name'+strid).innerHTML
+        cart[strid]=[qty,name]
         document.getElementById('clearcart').style.visibility="visible";
         updatecart(cart)
 
@@ -35,9 +39,7 @@
             console.log(cart[i])
         }
         console.log(text); */
-
       });
-
 
      $('#popcart').popover();
      updatepopover(cart);
@@ -47,21 +49,12 @@
         con="<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
         i=1;
         for ( var item in cart) {
-          //console.log("popover")
-          //console.log(i)
-          con=con+i+"."+document.getElementById('name'+item).innerHTML+"<b> QTY:"+cart[item]+"</b><br>"
-
-          i+=1;
+                  con=con+i+"."+document.getElementById('name'+item).innerHTML+"<b> QTY:"+cart[item][0]+"</b><br>"
+                  i+=1;
 
           }
 
-
-
-
           con+="</div><a href='/shop/checkout'><button class='btn btn-primary' id ='checkout'>Checkout</button></a>"
-          //<button class='btn btn-primary' type='button'>Click Me!</button>";
-            //<span><a href='/shop/checkout/'>HI</a> </span>
-          //console.log(con);
 
           document.getElementById("popcart").setAttribute('data-content', con);
 
@@ -69,9 +62,8 @@
         };
 
     function updatecart(cart){
-        console.log(cart);
-        for (var item in cart){
-        console.log(cart[item]);
+            for (var item in cart){
+
 //-below code is for removing 0 elements from cart. But its not working.
         /*  if (cart[item]==0){
             console.log("Item is 0 :"+item);
@@ -80,38 +72,37 @@
             continue;
           } */
 
-        console.log(item);
-            document.getElementById('div'+item).innerHTML="<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+              document.getElementById('div'+item).innerHTML="<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
             }
-            //console.log("CART AFTER DELETE "+JSON.stringify(cart))
         localStorage.setItem('cart', JSON.stringify(cart));
+
         document.getElementById('cart').innerHTML = Object.keys(cart).length;
         updatepopover(cart);
 
     }
     $('.divpr').on("click","button.minus",function(){
-        console.log("minus")
         a=this.id.slice(7,);
-        console.log(a);
-        cart['pr'+a]=cart['pr'+a]-1;
-        cart['pr'+a]=Math.max(0,cart['pr'+a]);
-        document.getElementById('valpr'+a).innerHTML=cart['pr'+a];
+        console.log(cart['pr'+a][0]);
+        cart['pr'+a][0]=cart['pr'+a][0]-1;
+        cart['pr'+a][0]=Math.max(0,cart['pr'+a][0]);
+        document.getElementById('valpr'+a).innerHTML=cart['pr'+a][0];
+        if (cart['pr'+a][0]==0){
+            console.log("ZERO");
+            console.log(a);
+            document.getElementById('divpr'+a).innerHTML="<button class='btn btn-primary cart' id='pr"+a+"'>Add To Cart</button>";
+        };
         updatecart(cart);
+    });
 
-
-    })
     $('.divpr').on("click","button.plus",function(){
-        console.log("plus")
         a=this.id.slice(6,);
-        cart['pr'+a]=cart['pr'+a]+1;
-        document.getElementById('valpr'+a).innerHTML=cart['pr'+a];
+        cart['pr'+a][0]=cart['pr'+a][0]+1;
+        document.getElementById('valpr'+a).innerHTML=cart['pr'+a][0];
         updatecart(cart);
-
-    })
+    });
 
     $('#clearcart').click(function(){
     localStorage.removeItem("cart");
-
     });
 
 

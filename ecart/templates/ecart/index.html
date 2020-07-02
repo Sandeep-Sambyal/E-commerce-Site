@@ -2,7 +2,7 @@
 {%block title%} {% load static %} Ecart- Home{% endblock %}
  {% block css %}
 body{
-background-image : url("{%static 'ecart/skywallpaper.jpeg' %}");
+#background-image : url("{%static 'ecart/skywallpaper.jpeg' %}");
 }
          .col-md-3
           {
@@ -45,6 +45,14 @@ background-image : url("{%static 'ecart/skywallpaper.jpeg' %}");
            padding-right: 0;
 
            }
+           .card-title,.card-text{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            }
+.card-text{
+font-size:small;}
+
  {% endblock %}
 
 {% block body %}
@@ -73,8 +81,10 @@ background-image : url("{%static 'ecart/skywallpaper.jpeg' %}");
           <div class="card" style="width: 18rem; ">
             <img src='/media/{{i.image}}' class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title" id="namepr{{i.id}}" style="font-size:16px">{{i.product_name | slice:"0:20"}} ...</h5>
+              <h5 class="card-title" id="namepr{{i.id}}" style="font-size:16px">{{i.product_name}}</h5>
               <p class="card-text">{{i.desc}}</p>
+             <!-- <h5 class="card-title" id="namepr{{i.id}}" style="font-size:16px">{{i.product_name | slice:"0:20"}} ...</h5>
+              <p class="card-text">{{i.desc}}</p> -->
               <span id="divpr{{i.id}}" class="divpr">
                 <button class="btn btn-primary cart" id="pr{{i.id}}">Add To Cart</button> 
               </span>
