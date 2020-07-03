@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Products,CustomerData,Order
+from .models import Products,CustomerData,Order,orderdetail
 from math import ceil
+import json
 # Create your views here.
 
 def index(request):
@@ -27,36 +28,37 @@ def about(request):
 
 def contact(request):
 
-
-    allProds = []
-    val = Products.objects.values('category', 'id')
-    val2 = {item['category'] for item in val}
-    str1=""
-    for val2 in val2:
-        prod = Products.objects.filter(category=val2)
-        val=[item.product_name for item in prod]
-        for a in val:
-            print(a)
-        str1=str1+","
-        n = len(prod)
-        nSlides = n // 4 + ceil((n / 4) - (n // 4))
-        """str1=str1+str(prod)
-        a=[item['product_name']  in prod]
-            print(item)"""
-        allProds.append([prod, range(1, nSlides), nSlides])
-    params = {'allProds': allProds}
-        #for a in allProds:
-    #print(params)
-    return render(request,'ecart/contact.html',params)
+    return render(request,'ecart/contact.html')
 
 def orders(request):
+    if (request.method == "POST"):
+        email=request.POST.get('email','')
+        oid=request.POST.get('orderid','')
+        print(email,oid)
 
+        try:
+            check=Order.objects.filter(order_id=oid , email=email)
+            print(check[0].prod_list)
+            if (len(check)>0):
+                query=orderdetail.objects.filter(order_id=oid)
+                text=[]
 
+                for item in query:
+                    text.append({'text':item.update_desc,'time':item.timestamp})
+                    response=json.dumps([text,check[0].prod_list],default=str)
+                    print(response)
+                return HttpResponse(response)
+            else:
+                return HttpResponse('Data provided is Incorrect')
 
-
+        except Exception as e:
+            return HttpResponse('if ')
+        
     return render(request,'ecart/order.html')
+
 def search(request):
     return HttpResponse("SEARCH PAGE")
+
 def checkout(request):
     if (request.method == "POST"):
         name=request.POST.get("name","")
@@ -72,9 +74,11 @@ def checkout(request):
         val.save()
         thank=True
         order=val.order_id
-        return render(request,'ecart/order.html',{'thank':thank,'orderid':order})
+        update=orderdetail(order_id=order, update_desc="Your order has been placed.")
+        update.save()
+        return render(request,'ecart/checkout.html',{'thank':thank,'orderid':order})
 
-    return render(request,'ecart/order.html')
+    return render(request,'ecart/checkout.html')
 
 def products(request , myid):
     product = Products.objects.filter( id = myid)
@@ -92,7 +96,6 @@ def seller(request):
         country=request.POST.get('country','')
         same_addr=request.POST.get('same_addr','false')
         phone=request.POST.get('phone','')
-
         name=fname.strip() + " " + lname.strip()
         address=address.strip()+" "+state.strip()+" "+zip+" "+country
 

@@ -39,4 +39,14 @@ class Order(models.Model):
     prod_list=models.CharField(max_length=2000,default="")
 
 
+class orderdetail(models.Model):
+    order_id=models.IntegerField(default="")
+    update_id=models.AutoField(primary_key=True)
+    update_desc=models.CharField(max_length=5000)
+    timestamp=models.DateTimeField(auto_now_add=True)
 
+
+    """docstring for orderdetail"""
+    def __str__(self):
+        return str(self.order_id)+","+self.update_desc[0:20]+"..."
+        
