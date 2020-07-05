@@ -1,1 +1,126 @@
 {% extends 'ecart/basic.html' %}
+{%block title%} Ecart- Orders{% endblock %}
+ {% block css %}
+.list-group{
+margin-left:12%;
+width:70%;
+}
+.addressdetails{
+margin-left:12%;
+width:70%;
+}
+
+{% endblock %}
+
+ {%block body%}
+<div class="container">
+    <h3 style="margin-left:12%">Ecart.com- Please review and confirm your Orders</h3>
+   <ul class="list-group" id="listprod">
+
+</ul>
+<br>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active totalpricesec" aria-current="page" id="totalpricesec" style="padding-left: 133px;"></li>
+  </ol>
+</nav>
+
+
+<div class="addressdetails my-4">
+ <h3 >Ecart.com- Please review your Address and place Order!</h3>
+ <form method="post" action="/shop/checkout/">
+     {% csrf_token%}
+     <input type="hidden" name="customerlist" id="customerlist"></input>
+  <div class="form-row my-3">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+      <input type="email" class="form-control" id="inputEmail4" name="email" placeholder="Email" >
+    </div>
+    <div class="form-group col-md-6">
+      <label for="telephone">Phone Number</label>
+      <input type="tel" class="form-control" id="telephone" name="phone" placeholder="PHONE{10 digits}" pattern="[0-9]{10}" required>
+    </div>
+  </div>
+     <div class="form-group">
+    <label for="Name">Name</label>
+    <input type="text" class="form-control" id="Name" name="name">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Address</label>
+    <input type="text" class="form-control" id="inputAddress" name="Address1" placeholder="1234 Main St">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2"  name="Address2" placeholder="Apartment, studio, or floor">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control" id="inputCity" name="city">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">State</label>
+      <input type="text" class="form-control" id="inputState" name="state">
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zip</label>
+      <input type="text" class="form-control" id="inputZip" name="zip_code">
+    </div>
+  </div>
+  <div class="form-group">
+
+  </div>
+  <button type="submit" class="btn btn-primary" id="submit">Place Order</button>
+</form>
+</div>
+</div>
+
+
+ {% endblock %}
+
+  {% block js %}
+<script>
+  if(localStorage.getItem('cart')==null){
+      var cart={};
+
+      }
+      else{
+        cart=JSON.parse(localStorage.getItem('cart'));
+      }
+
+      console.log(cart);
+ var sum=0;
+ var totalprice=0;
+ var finalcart={};
+    if ( $.isEmptyObject(cart)){
+       mystr="<p style='color:red; font-size:xx-large'><b>Your Cart is Empty. Kindly add some products.</b></p>"
+       $('#listprod').append(mystr);
+       document.getElementById('submit').disabled=true;
+    }
+    else{
+      for (var item in cart){
+      sum=sum+cart[item][0];
+      totalprice+=cart[item][0]*cart[item][2];
+      if(cart[item][0]>0){
+         str="<li class='list-group-item d-flex justify-content-between align-items-center' >"+cart[item][1]+
+                "<span class='badge badge-primary badge-pill'>"+cart[item][0]+"</span></li>"
+      finalcart[cart[item][1]]= cart[item][0];
+  $('#listprod').append(str)
+      }}};
+document.getElementById('cart').innerHTML = sum;
+document.getElementById('totalpricesec').innerHTML='Thank you for shopping with us. Total amount is :Rs<b>'+totalprice+'/-.</b> Kindly enter informatio below to place your order.';
+
+console.log("FINAL CART"+JSON.stringify(finalcart));
+$('#customerlist').val(JSON.stringify(finalcart));
+
+{% if thank %}{
+alert("Thank you for order with us. Your Order id is : {{orderid}}. Use it to track your order.");
+localStorage.clear();
+document.location="/shop";}
+{% endif %}
+
+
+</script>
+
+{% endblock %}
+

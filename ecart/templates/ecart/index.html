@@ -50,8 +50,13 @@ body{
             overflow: hidden;
             text-overflow: ellipsis;
             }
-.card-text{
-font-size:small;}
+            .card-text{
+            font-size:small;
+            margin-bottom:0.3rem;}
+            .card-price{
+            text-align:center;
+            background-color:greenyellow;
+          }
 
  {% endblock %}
 
@@ -64,7 +69,7 @@ font-size:small;}
     <div class="row">
 <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
     <ul class="carousel-indicators">
-      <li data-target="#demo" data-slide-to="0" class="active"></li>
+      <li data-target="#demo" data-slide-to="0" class="active" ></li>
 
        {% for i in range %}
       <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}" ></li>
@@ -83,8 +88,7 @@ font-size:small;}
             <div class="card-body">
               <h5 class="card-title" id="namepr{{i.id}}" style="font-size:16px">{{i.product_name}}</h5>
               <p class="card-text">{{i.desc}}</p>
-             <!-- <h5 class="card-title" id="namepr{{i.id}}" style="font-size:16px">{{i.product_name | slice:"0:20"}} ...</h5>
-              <p class="card-text">{{i.desc}}</p> -->
+              <h6 class="card-price" id="pricepr{{i.id}}">Price- Rs{{i.price}}</h6>
               <span id="divpr{{i.id}}" class="divpr">
                 <button class="btn btn-primary cart" id="pr{{i.id}}">Add To Cart</button> 
               </span>

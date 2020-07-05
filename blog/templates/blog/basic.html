@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>{%block title%} {% endblock %}</title>
+    <title>{%block title%}{% load static%} Blog.com{% endblock %}</title>
     <style>
         .btn-secondary{
         width : 86px;
@@ -17,8 +17,14 @@
         #clearcart{
         visibility:hidden;
         }
+        .brandLogo{
+          width: 63px;
+            height: 41px;
+        }
 
-        {% block css %} {% endblock %}
+        {% block css %}
+
+         {% endblock %}
 
     </style>
 
@@ -27,7 +33,10 @@
 
   <!-- NAVIGATION BAR -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{% url 'shoplaunch'%}">ECart.com</a>
+    
+    <a class="navbar-brand" href="/blog/"><img class="brandLogo" src="{%static 'blog/icon.png'%}" ></a>
+      <!--<a class="navbar-brand" href="{% url 'bloghome'%}">Blog.com</a> 
+      <a class="navbar-brand" href="{% url 'bloghome'%}"><img src="{%static 'blog.facivon.ico' %}" ></img></a>-->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
@@ -35,34 +44,19 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'shoplaunch'%}" >Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="{% url 'bloghome'%}" >Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'orders'%}">Orders</a>
+              <a class="nav-link" href="{% url 'bloghome'%}">Contact Us</a>
           </li>
-          <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Options
-              </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'ContactUS'%}">Contact Care</a>
-                <a class="dropdown-item" href="#">Report a Bug</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'sellerform'%}">Be a Seller</a>
-            </div>
-          </li>
+          
 
 
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <button class="clearcart btn btn-primary mx-2" id="clearcart" >Clear Cart</button>
-            <a type="button" class="btn btn-primary mx-2" href="{% url 'Checkout'%}">CheckOut</a>
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            <button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
-sagittis lacus vel augue laoreet rutrum faucibus.">
-                Cart(<span id="cart">0</span>)
-            </button>
+           
 
         </form>
       </div>
