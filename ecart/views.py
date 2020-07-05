@@ -85,6 +85,7 @@ def products(request , myid):
     return render(request,'ecart/products.html',{'Product':product[0]})
 
 def seller(request):
+    thank=False
     if request.method=="POST":
         fname =request.POST.get('Firstname','')
         lname =request.POST.get('lastname','')
@@ -103,9 +104,15 @@ def seller(request):
         if same_addr=='false':
             custdata=CustomerData(seller_profile="R",CustomerName=name,email=email,seller_address =address ,phone=phone,country=country)
             custdata.save()
+            thank=True
         else:
             custdata = CustomerData(seller_profile="R", CustomerName=name, email=email, seller_address=address, shipping_address=address,phone=phone,country=country )
             custdata.save()
-
-    param={'countrylist':['India','Nepal','Pakistan','Sri Lanka','Bangladesh']}
+            thank=True
+        param={'countrylist':['India','Nepal','Pakistan','Sri Lanka','Bangladesh'],'thank':thank,'name':name}  
+        return render(request,'ecart/SellerForm.html',param)  
+    #param={'countrylist':['India','Nepal','Pakistan','Sri Lanka','Bangladesh']}
+    thank=True;
+    name="Saammm ssamm"
+    param={'countrylist':['India','Nepal','Pakistan','Sri Lanka','Bangladesh'],'thank':thank,'name':name}
     return render(request,'ecart/SellerForm.html',param)

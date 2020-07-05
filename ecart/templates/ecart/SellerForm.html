@@ -24,8 +24,13 @@
 
  {%block body%}
 
-
+{% load static %}
  <div class="container">
+}
+<p class="lead" id="confrmtn" style="background-color: cyan; height: 2em; text-align: center; display:none;"><b>Thank you for contacting. Our team will get back to you soon!
+  
+</p>
+
   <div class="py-5 text-center">
 
     <h2>Registration Form</h2>
@@ -115,7 +120,7 @@
   </div>
 
   <footer class="my-5 pt-5 text-muted text-center text-small">
-    <p class="mb-1">&copy; 2017-2020 Company Name</p>
+    <p class="mb-1">&copy; @Sandeep Singh's Scripting</p>
     <ul class="list-inline">
       <li class="list-inline-item"><a href="#">Privacy</a></li>
       <li class="list-inline-item"><a href="#">Terms</a></li>
@@ -123,5 +128,20 @@
     </ul>
   </footer>
 </div>
+
+{% endblock %}
+
+{% block js%}
+  <script>
+{% if thank %}{
+    val=document.getElementById('confrmtn').innerHTML;
+    val={{name}}+val;
+    console.log(val);
+$('#confrmtn').show();
+{% endif %}
+
+}
+
+  </script>
 
 {% endblock %}

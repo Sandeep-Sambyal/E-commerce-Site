@@ -14,16 +14,22 @@
       $('.cart').click(function (){
 
       var strid=this.id.toString();
+      console.log(strid);
       if(cart[strid]!=undefined){
         qty=cart[strid][0]+1;
-        name=document.getElementById('name'+strid).innerHTML
-        cart[strid]=[qty,name]
+        name=document.getElementById('name'+strid).innerHTML;
+        price=document.getElementById('price'+strid).innerHTML;
+        //console.log("Price "+price);
+        cart[strid]=[qty,name,price.slice(9,)]
         updatecart(cart);
       }
       else{
         qty=1;
         name=document.getElementById('name'+strid).innerHTML
-        cart[strid]=[qty,name]
+        price=document.getElementById('price'+strid).innerHTML;
+        console.log("Price"+price.slice(9,))
+        console.log("Price"+price)
+        cart[strid]=[qty,name,price.slice(9,)]
         document.getElementById('clearcart').style.visibility="visible";
         updatecart(cart)
 
@@ -63,16 +69,7 @@
 
     function updatecart(cart){
             for (var item in cart){
-
-//-below code is for removing 0 elements from cart. But its not working.
-        /*  if (cart[item]==0){
-            console.log("Item is 0 :"+item);
-            delete cart.item;
-            console.log(cart);
-            continue;
-          } */
-
-              document.getElementById('div'+item).innerHTML="<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+                  document.getElementById('div'+item).innerHTML="<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
             }
         localStorage.setItem('cart', JSON.stringify(cart));
 
@@ -88,7 +85,9 @@
         document.getElementById('valpr'+a).innerHTML=cart['pr'+a][0];
         if (cart['pr'+a][0]==0){
             console.log("ZERO");
-            console.log(a);
+            console.log(cart);
+            delete cart['pr'+a];
+            console.log(cart)
             document.getElementById('divpr'+a).innerHTML="<button class='btn btn-primary cart' id='pr"+a+"'>Add To Cart</button>";
         };
         updatecart(cart);
