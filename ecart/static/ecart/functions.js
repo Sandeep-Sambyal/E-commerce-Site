@@ -69,6 +69,7 @@
 
     function updatecart(cart){
             for (var item in cart){
+                    console.log("itemmmm"+item)
                   document.getElementById('div'+item).innerHTML="<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
             }
         localStorage.setItem('cart', JSON.stringify(cart));
