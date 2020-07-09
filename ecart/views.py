@@ -57,7 +57,26 @@ def orders(request):
     return render(request,'ecart/order.html')
 
 def search(request):
-    return HttpResponse("SEARCH PAGE")
+    query=request.GET.get("search")
+    print(query)
+    allProds = []
+    val = Products.objects.values('category', 'id')
+    val2 = {item['category'] for item in val}
+    str1 = ""
+    for val2 in val2:
+        prodtemp = Products.objects.filter(category=val2)
+        prod=[item for item in prodtemp if searchMatch(query,item)]
+        val = [item.product_name for item in prod]
+        str1 = str1 + ","
+        n = len(prod)
+        nSlides = n // 4 + ceil((n / 4) - (n // 4))
+        if len(prod)!=0:
+            allProds.append([prod, range(1, nSlides), nSlides])
+    params = {'allProds': allProds, "msg": ""}
+    if len(allProds) == 0 or len(query) < 4:
+        params = {'msg': "Please make sure to enter relevant search query"}
+    return render(request, 'ecart/search.html', params)
+
 
 def checkout(request):
     if (request.method == "POST"):
@@ -116,3 +135,9 @@ def seller(request):
     name="Saammm ssamm"
     param={'countrylist':['India','Nepal','Pakistan','Sri Lanka','Bangladesh'],'thank':thank,'name':name}
     return render(request,'ecart/SellerForm.html',param)
+
+def searchMatch(query,item):
+    if query in item.desc.lower() or query in item.product_name.lower() or query in item.category.lower():
+        return True
+    else:
+        return False

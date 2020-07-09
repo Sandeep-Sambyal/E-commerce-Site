@@ -11,9 +11,9 @@
         document.getElementById('clearcart').style.visibility="visible";
       }
 
-      $('.cart').click(function (){
-
-      var strid=this.id.toString();
+      //$('.cart').click(function (){
+function cartclick(event){
+      var strid=event.id;
       console.log(strid);
       if(cart[strid]!=undefined){
         qty=cart[strid][0]+1;
@@ -45,7 +45,7 @@
             console.log(cart[i])
         }
         console.log(text); */
-      });
+      };
 
      $('#popcart').popover();
      updatepopover(cart);
@@ -89,7 +89,7 @@
             console.log(cart);
             delete cart['pr'+a];
             console.log(cart)
-            document.getElementById('divpr'+a).innerHTML="<button class='btn btn-primary cart' id='pr"+a+"'>Add To Cart</button>";
+            document.getElementById('divpr'+a).innerHTML="<button class='btn btn-primary cart' id='pr"+a+"' onclick='cartclick(this)'>Add To Cart</button>";
         };
         updatecart(cart);
     });
