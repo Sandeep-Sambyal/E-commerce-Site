@@ -121,6 +121,12 @@ body{
  {% endblock %}
 
 {% block js %}
+<script>
+{% if msg|length != 0 %}
+alert('{{msg}}');
+window.location.href = "/shop/"
+{% endif %}
+</script>
 <script type="text/javascript" src="{%static '/ecart/functions.js'%}"></script>
 
 

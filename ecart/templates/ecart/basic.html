@@ -18,6 +18,7 @@
         visibility:hidden;
         }
 
+        
         {% block css %} {% endblock %}
 
     </style>
@@ -26,45 +27,47 @@
 
 
   <!-- NAVIGATION BAR -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{% url 'shoplaunch'%}">ECart.com</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark navigationbar">
+      <a class="navbar-brand text-white" href="{% url 'shoplaunch'%}">ECart.com</a>
+      <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'shoplaunch'%}" >Home <span class="sr-only">(current)</span></a>
+              <a class="nav-link text-white" href="{% url 'shoplaunch'%}" >Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="{% url 'orders'%}">Orders</a>
+              <a class="nav-link text-white" href="{% url 'orders'%}">Orders</a>
           </li>
           <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Options
               </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'ContactUS'%}">Contact Care</a>
-                <a class="dropdown-item" href="#">Report a Bug</a>
+            <div class="dropdown-menu text-white bg-dark" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item text-primary font-weight-bold" href="{% url 'ContactUS'%}">Contact Care</a>
+                <a class="dropdown-item text-danger font-weight-bold" href="#">Report a Bug</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'sellerform'%}">Be a Seller</a>
+                <a class="dropdown-item text-warning font-weight-bold" href="{% url 'sellerform'%}">Be a Seller</a>
             </div>
           </li>
 
 
         </ul>
-        <form class="form-inline my-2 my-lg-0">
+
             <button class="clearcart btn btn-primary mx-2" id="clearcart" >Clear Cart</button>
             <a type="button" class="btn btn-primary mx-2" href="{% url 'Checkout'%}">CheckOut</a>
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+         <form class="form-inline my-2 my-lg-0" method="get" action="/shop/search/">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" >Search</button>
+          </form>
             <button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
 sagittis lacus vel augue laoreet rutrum faucibus.">
                 Cart(<span id="cart">0</span>)
             </button>
 
-        </form>
+
       </div>
     </nav>
 
