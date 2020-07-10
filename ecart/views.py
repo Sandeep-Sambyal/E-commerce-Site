@@ -45,14 +45,15 @@ def orders(request):
 
                 for item in query:
                     text.append({'text':item.update_desc,'time':item.timestamp})
-                    response=json.dumps([text,check[0].prod_list],default=str)
-                    print(response)
+                #response=json.dumps([text,check[0].prod_list],default=str)
+                response = json.dumps({"status":"Success","updates":text,"itemsJson": check[0].prod_list}, default=str)
+                print(response)
                 return HttpResponse(response)
             else:
-                return HttpResponse('Data provided is Incorrect')
+                return HttpResponse('{"status":"No Items Found"}')
 
         except Exception as e:
-            return HttpResponse('if ')
+            return HttpResponse('{"status":"Error Processing"}')
         
     return render(request,'ecart/order.html')
 
